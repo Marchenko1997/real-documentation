@@ -21,3 +21,5 @@ const Provider = ({ children }: { children: ReactNode }) => {
     ></LiveblocksProvider>
   );
 };
+
+export default Provider;
