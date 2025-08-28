@@ -1,5 +1,12 @@
 declare type UserType = "creator" | "editor" | "viewer";
 
+  declare type RoomAccesses = Record<string, AccessType>;
+
+  declare type CreateDocumentParams = {
+    userId: string;
+    email: string;
+  };
+
 declare type User = {
   id: string;
   name: string;
