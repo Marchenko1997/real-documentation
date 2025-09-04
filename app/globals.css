@@ -24,3 +24,23 @@
   .home-container {
     @apply relative flex min-h-screen w-full flex-col items-center gap-5 sm:gap-10;
   }
+
+  .document-list-container {
+    @apply flex flex-col items-center mb-10 w-full gap-10 px-5;
+  }
+
+  .document-list-title {
+    @apply max-w-[730px] items-end flex w-full justify-between;
+  }
+
+  .document-list-item {
+    @apply flex items-center justify-between gap-4 rounded-lg bg-doc bg-cover p-5 shadow-xl;
+  }
+
+    .document-ul {
+    @apply flex w-full max-w-[730px] flex-col gap-5;
+  }
+
+    .document-list-empty {
+    @apply flex w-full max-w-[730px] flex-col items-center justify-center gap-5 rounded-lg bg-dark-200 px-10 py-8;
+  }
