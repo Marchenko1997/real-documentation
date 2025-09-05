@@ -20,3 +20,10 @@ declare type HeaderProps = {
   children: React.ReactNode;
   className?: string;
 };
+
+  declare type AddDocumentBtnProps = {
+    userId: string;
+    email: string;
+  };
+ 
+   declare type DeleteModalProps = { roomId: string };

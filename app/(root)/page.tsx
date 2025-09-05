@@ -56,11 +56,11 @@ const Home = async () => {
                   <div className="space-y-1">
                     <p className="line-clamp-1 text-lg">{metadata.title}</p>
                     <p className="text-sm font-light text-blue-100">
-                      Created about 
+                      Created about
                     </p>
                   </div>
                 </Link>
-           
+                <DeleteModal roomId={id} />
               </li>
             ))}
           </ul>
