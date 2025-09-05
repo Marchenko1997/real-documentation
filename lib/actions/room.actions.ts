@@ -38,25 +38,21 @@ export const createDocument = async ({
 };
 
 
-export const getDocuments = async ({
-  roomId,
-  userId,
-}: {
-  roomId: string;
-  userId: string;
-}) => {
+export const getDocuments = async (userId: string) => {
   try {
-    const room = await liveblocks.getRoom(roomId);
-    const hasAccess = Object.keys(room.usersAccesses).includes(userId);
-    if (!hasAccess) {
-      throw new Error("You don't have access to this document");
-    }
+    const rooms = await liveblocks.listRooms(); // список всех комнат
+    // фильтруем по пользователю
+    const userRooms = rooms.data.filter((room: any) =>
+      Object.keys(room.usersAccesses).includes(userId)
+    );
 
-    return parseStringify(room);
+    return userRooms; // возвращаем массив
   } catch (error) {
-    console.log(`Error fetching document: ${error}`);
+    console.log(`Error fetching documents: ${error}`);
+    return [];
   }
 };
+
 
 export const deleteDocument = async (roomId: string) => { 
   try {
