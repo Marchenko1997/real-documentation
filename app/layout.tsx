@@ -5,7 +5,7 @@ import { Inter as FontSans } from "next/font/google";
 import { dark } from "@clerk/themes";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import Provider from "./Provider";
+import Provider from "../components/Provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
