@@ -16,17 +16,14 @@ import {
   FloatingThreads,
   LiveblocksPlugin,
   liveblocksConfig,
-  useEditorStatus,
+  useIsEditorReady, // ← ЗАМЕНА
 } from "@liveblocks/react-lexical";
 import FloatingToolbarPLugin from "./plugins/FloatingToolbarPlugin";
 import Loader from "../Loader";
 import { useThreads } from "@liveblocks/react/suspense";
-import Comments from "../Comments";
-import { DeleteModal } from "../DeleteModal";
 
-// Catch any errors that occur during Lexical updates and log them
-// or throw them as needed. If you don't throw them, Lexical will
-// try to recover gracefully without losing user data.
+import { DeleteModal } from "../DeleteModal";
+import Comments from "../Comments";
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -39,7 +36,7 @@ export function Editor({
   roomId: string;
   currentUserType: UserType;
 }) {
-  const status = useEditorStatus();
+  const isReady = useIsEditorReady(); 
   const { threads } = useThreads();
 
   const initialConfig = liveblocksConfig({
@@ -62,7 +59,7 @@ export function Editor({
         </div>
 
         <div className="editor-wrapper flex flex-col items-center justify-start">
-          {status === "not-loaded" || status === "loading" ? (
+          {!isReady ? ( 
             <Loader />
           ) : (
             <div className="editor-inner min-h-[1100px] relative mb-5 h-fit w-full max-w-[800px] shadow-md lg:mb-10">
