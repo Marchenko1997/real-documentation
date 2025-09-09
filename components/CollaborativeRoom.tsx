@@ -9,6 +9,7 @@ import { Input } from "./ui/input";
 import Image from "next/image";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import ActiveCollaborators from "./ActiveCollaborators";
+import { Editor } from "./editor/Editor";
 
 
 const CollaborativeRoom = ({
@@ -119,6 +120,7 @@ const CollaborativeRoom = ({
                 </SignedIn>
               </div>
             </Header>
+            <Editor roomId={roomId} currentUserType={currentUserType} />
           </div>
         </ClientSideSuspense>
       </RoomProvider>
