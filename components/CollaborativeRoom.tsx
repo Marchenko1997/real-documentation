@@ -8,6 +8,7 @@ import Header from "./Header";
 import { Input } from "./ui/input";
 import Image from "next/image";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import ActiveCollaborators from "./ActiveCollaborators";
 
 
 const CollaborativeRoom = ({
@@ -109,6 +110,7 @@ const CollaborativeRoom = ({
                 {loading && <p className="text-sm text-gray-400">Saving…</p>}
               </div>
               <div className="flex w-full flex-1 justify-end gap-2 sm:gap-3">
+                <ActiveCollaborators />
                 <SignedOut>
                   <SignInButton />
                 </SignedOut>
