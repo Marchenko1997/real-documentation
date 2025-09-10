@@ -32,10 +32,25 @@ declare type User = {
   userType?: UserType;
 };
 
+  declare type ShareDocumentParams = {
+    roomId: string;
+    email: string;
+    userType: UserType;
+    updatedBy: User;
+  };
+
 declare type HeaderProps = {
   children: React.ReactNode;
   className?: string;
 };
+
+  declare type CollaboratorProps = {
+    roomId: string;
+    email: string;
+    creatorId: string;
+    collaborator: User;
+    user: User;
+  };
 
   declare type CollaborativeRoomProps = {
     roomId: string;

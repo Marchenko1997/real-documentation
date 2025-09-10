@@ -74,25 +74,34 @@ export const ShareModal: React.FC<ShareModalProps> = ({
             <DialogDescription>
               Select which users can view and edit this document
             </DialogDescription>
-                </DialogHeader>
-                 <Label htmlFor="email" className="mt-6 text-blue-100">
-          Email address
-        </Label>
-        <div className="flex items-center gap-3">
-          <div className="flex flex-1 rounded-md bg-dark-400">
-            <Input
-              id="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setEmail(e.target.value) 
-              }
-              className="share-input"
-            />
-          
-            <UserTypeSelector userType={userType} setUserType={setUserType} />
-                    </div>
-                    </div>
+          </DialogHeader>
+          <Label htmlFor="email" className="mt-6 text-blue-100">
+            Email address
+          </Label>
+          <div className="flex items-center gap-3">
+            <div className="flex flex-1 rounded-md bg-dark-400">
+              <Input
+                id="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setEmail(e.target.value)
+                }
+                className="share-input"
+              />
+
+              <UserTypeSelector userType={userType} setUserType={setUserType} />
+            </div>
+            <Button
+              type="submit"
+              onClick={shareDocumentHandler}
+                        className="gradient-blue flex h-full gap-1 px-5"
+                        disabled={loading}
+                    >
+                        
+                {loading ? "Sending..." : "Invite"}
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
     );

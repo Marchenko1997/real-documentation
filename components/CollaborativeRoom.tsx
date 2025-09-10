@@ -10,6 +10,7 @@ import Image from "next/image";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import ActiveCollaborators from "./ActiveCollaborators";
 import { Editor } from "./editor/Editor";
+import { ShareModal } from "./ShareModal";
 
 
 const CollaborativeRoom = ({
@@ -112,6 +113,12 @@ const CollaborativeRoom = ({
               </div>
               <div className="flex w-full flex-1 justify-end gap-2 sm:gap-3">
                 <ActiveCollaborators />
+                <ShareModal
+                  roomId={roomId}
+                  collaborators={users}
+                  creatorId={roomMetadata.creatorId}
+                  currentUserType={currentUserType}
+                />
                 <SignedOut>
                   <SignInButton />
                 </SignedOut>
