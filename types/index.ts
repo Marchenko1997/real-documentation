@@ -42,6 +42,12 @@ declare type HeaderProps = {
     roomMetadata: RoomMetadata;
     users: User[];
     currentUserType: UserType;
+};
+  
+  declare type UserTypeSelectorParams = {
+    userType: string;
+    setUserType: React.Dispatch<React.SetStateAction<UserType>>;
+    onClickHandler?: (value: string) => void;
   };
 
 declare type AddDocumentBtnProps = {
