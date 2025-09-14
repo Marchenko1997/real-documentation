@@ -6,6 +6,7 @@ import { dark } from "@clerk/themes";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Provider from "../components/Provider";
+import { Toaster } from "sonner";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
             fontSans.variable
           )}
         >
+          <Toaster richColors position="top-right" />
           <Provider>{children}</Provider>
         </body>
       </html>
