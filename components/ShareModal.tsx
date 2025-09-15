@@ -63,7 +63,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
           updatedBy: user.info,
         });
         toast.success(`Приглашение отправлено ✅ (${email})`);
-        setEmail(""); // очищаем поле
+        setEmail("");
       }
     } catch (error) {
       console.error(error);
