@@ -25,7 +25,7 @@ const Home = async () => {
           <Notifications />
           <SignedIn>
             <UserButton
-              afterSignOutUrl="/sign-in" // 👈 Автоматический редирект после выхода
+              afterSignOutUrl="/sign-in" 
             />
           </SignedIn>
         </div>
