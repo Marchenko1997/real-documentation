@@ -35,17 +35,22 @@ Work together, share ideas instantly, and manage access all in one place!
 
 ## 🚀 Getting Started
 
-Install dependencies:
+**Install dependencies:**
 
 npm install
 
-npm run dev
+**Run the development server:**
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+**Open [http://localhost:3000](http://localhost:3000) in your browser to view the app.**
 
-You can start editing the page by modifying `app/page.tsx` (home page) or `app/documents/[id]/page.tsx` (collaborative document page).
+You can start editing the page by modifying:
+
+- `app/page.tsx` (the home page)  
+- `app/documents/[id]/page.tsx` (the collaborative document page)
 
 ---
+
+This setup allows you to quickly start developing and testing LiveDocs on your local machine.
 
 ## 📖 Usage
 
