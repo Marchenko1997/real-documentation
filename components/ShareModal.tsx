@@ -39,7 +39,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
 
   const shareDocumentHandler = async () => {
     if (!email) {
-      toast.error("Введите email пользователя");
+      toast.error("Enter user's email");
       return;
     }
 
@@ -54,7 +54,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
       const { exists } = await res.json();
 
       if (!exists) {
-        toast.error("Такого пользователя нет в системе ❌");
+        toast.error("There is no such user in the system. ❌");
       } else {
         await updateDocumentAccess({
           roomId,
@@ -62,12 +62,12 @@ export const ShareModal: React.FC<ShareModalProps> = ({
           userType: userType as any,
           updatedBy: user.info,
         });
-        toast.success(`Приглашение отправлено ✅ (${email})`);
+        toast.success(`Invitation sent ✅ (${email})`);
         setEmail("");
       }
     } catch (error) {
       console.error(error);
-      toast.error("Ошибка при приглашении");
+      toast.error("Error while inviting");
     } finally {
       setLoading(false);
     }
