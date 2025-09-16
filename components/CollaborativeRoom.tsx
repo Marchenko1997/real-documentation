@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { updateDocument } from "@/lib/actions/room.actions";
 import { RoomProvider, ClientSideSuspense } from "@liveblocks/react/suspense";
@@ -11,7 +11,6 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import ActiveCollaborators from "./ActiveCollaborators";
 import { Editor } from "./editor/Editor";
 import { ShareModal } from "./ShareModal";
-
 
 const CollaborativeRoom = ({
   roomId,
@@ -33,18 +32,16 @@ const CollaborativeRoom = ({
   ) => {
     if (e.key === "Enter") {
       setLoading(true);
-
       try {
         if (documentTitle !== roomMetadata?.title) {
-          const updatedDocument = await updateDocument(roomId, documentTitle);
-          if (updatedDocument) {
-            setEditing(false);
-          }
+          await updateDocument(roomId, documentTitle);
+          setEditing(false);
         }
       } catch (error) {
-        console.log(error);
+        console.error("Error updating title:", error);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
   };
 
@@ -55,8 +52,8 @@ const CollaborativeRoom = ({
         !containerRef.current.contains(e.target as Node)
       ) {
         setEditing(false);
+        updateDocument(roomId, documentTitle);
       }
-      updateDocument(roomId, documentTitle);
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -70,68 +67,70 @@ const CollaborativeRoom = ({
     }
   }, [editing]);
 
-
-    
-    return (
-      <RoomProvider id={roomId}>
-        <ClientSideSuspense fallback={<Loader />}>
-          <div className="collaborative-room">
-            <Header>
-              <div
-                ref={containerRef}
-                className="flex w-fit items-center justify-center gap-2"
-              >
-                {editing && !loading ? (
-                  <Input
-                    type="text"
-                    value={documentTitle}
-                    ref={inputRef}
-                    onChange={(e) => setDocumentTitle(e.target.value)}
-                    onKeyDown={updateTitleHandler}
-                    disabled={!editing}
-                    className="document-title-input"
-                  />
-                ) : (
-                  <>
-                    <p className="document-title">{documentTitle}</p>
-                  </>
-                )}
-                {currentUserType === "editor" && !editing && (
-                  <Image
-                    src="/assets/icons/edit.svg"
-                    alt="Edit title"
-                    width={24}
-                    height={24}
-                    onClick={() => setEditing(true)}
-                    className="pointer"
-                  />
-                )}
-                {currentUserType !== "editor" && !editing && (
-                  <p className="view-only-tag">View only</p>
-                )}
-                {loading && <p className="text-sm text-gray-400">Saving…</p>}
-              </div>
-              <div className="flex w-full flex-1 justify-end gap-2 sm:gap-3">
-                <ActiveCollaborators />
-                <ShareModal
-                  roomId={roomId}
-                  collaborators={users}
-                  creatorId={roomMetadata.creatorId}
-                  currentUserType={currentUserType}
+  return (
+    <RoomProvider id={roomId}>
+      <ClientSideSuspense fallback={<Loader />}>
+        <div className="collaborative-room">
+          <Header>
+            {/* Заголовок документа */}
+            <div
+              ref={containerRef}
+              className="flex w-fit items-center justify-center gap-2"
+            >
+              {editing && !loading ? (
+                <Input
+                  type="text"
+                  value={documentTitle}
+                  ref={inputRef}
+                  onChange={(e) => setDocumentTitle(e.target.value)}
+                  onKeyDown={updateTitleHandler}
+                  disabled={!editing}
+                  className="document-title-input"
                 />
-                <SignedOut>
-                  <SignInButton />
-                </SignedOut>
-                <SignedIn>
-                  <UserButton />
-                </SignedIn>
-              </div>
-            </Header>
-            <Editor roomId={roomId} currentUserType={currentUserType} />
-          </div>
-        </ClientSideSuspense>
-      </RoomProvider>
-    );
-}
+              ) : (
+                <p className="document-title">{documentTitle}</p>
+              )}
 
-export default CollaborativeRoom
+              {currentUserType === "editor" && !editing && (
+                <Image
+                  src="/assets/icons/edit.svg"
+                  alt="Edit title"
+                  width={24}
+                  height={24}
+                  onClick={() => setEditing(true)}
+                  className="pointer"
+                />
+              )}
+              {currentUserType !== "editor" && !editing && (
+                <p className="view-only-tag">View only</p>
+              )}
+              {loading && <p className="text-sm text-gray-400">Saving…</p>}
+            </div>
+
+            {/* Панель справа */}
+            <div className="flex w-full flex-1 justify-end gap-2 sm:gap-3">
+              <ActiveCollaborators />
+              <ShareModal
+                roomId={roomId}
+                collaborators={users}
+                creatorId={roomMetadata.creatorId}
+                currentUserType={currentUserType}
+              />
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>
+          </Header>
+
+          {/* Сам редактор */}
+          <Editor roomId={roomId} currentUserType={currentUserType} />
+        </div>
+      </ClientSideSuspense>
+    </RoomProvider>
+  );
+};
+
+export default CollaborativeRoom;

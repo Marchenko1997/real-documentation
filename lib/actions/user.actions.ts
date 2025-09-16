@@ -1,30 +1,11 @@
 "use server";
 
-import { clerkClient, currentUser } from "@clerk/nextjs/server";
-import { parseStringify } from "../utils";
+import { clerkClient } from "@clerk/nextjs/server";
 import { liveblocks } from "../liveblocks";
+import { parseStringify } from "../utils";
 
-export const getClerkUsers = async ({ userIds }: { userIds: string[] }) => {
-  try {
-    const { data } = await clerkClient.users.getUserList({
-      emailAddress: userIds,
-    });
-    const users = data.map((user) => ({
-      id: user.id,
-      name: `${user.firstName} ${user.lastName}`,
-      email: user.emailAddresses[0].emailAddress,
-      avatar: user.imageUrl,
-    }));
-    const sortedUsers = userIds.map((email) =>
-      users.find((user) => user.email === email)
-    );
-    return parseStringify(sortedUsers);
-  } catch (error) {
-    console.log(`Error fetching users: ${error}`);
-  }
-};
-
-export const getDocumentUsers = async ({
+// Объединяем Liveblocks + Clerk
+export const getDocumentUsersWithDecorations = async ({
   roomId,
   currentUser,
   text,
@@ -34,21 +15,64 @@ export const getDocumentUsers = async ({
   text: string;
 }) => {
   try {
+    // 1. Берём комнату из Liveblocks
     const room = await liveblocks.getRoom(roomId);
-    const users = Object.keys(room.usersAccesses).filter(
+
+    // 2. Список всех email (кроме текущего)
+    let emails = Object.keys(room.usersAccesses).filter(
       (email) => email !== currentUser
     );
 
+    // 3. Фильтр по поисковому тексту (если есть)
     if (text.length) {
       const lowerCaseText = text.toLowerCase();
-      const filteredUsers = users.filter((email: string) =>
+      emails = emails.filter((email) =>
         email.toLowerCase().includes(lowerCaseText)
       );
-      return parseStringify(filteredUsers);
     }
+
+    console.log("Emails in room:", emails);
+
+    // 4. Тянем Clerk-профили для этих email
+    const users = await Promise.all(
+      emails.map(async (email) => {
+        try {
+          const { data } = await clerkClient.users.getUserList({
+            query: email,
+          });
+
+          if (!data || data.length === 0) {
+            console.warn(`No Clerk user found for ${email}`);
+            return {
+              email,
+              role: room.usersAccesses[email],
+              name: null,
+              avatar: null,
+            };
+          }
+
+          const u = data[0];
+          return {
+            email,
+            role: room.usersAccesses[email],
+            name: `${u.firstName ?? ""} ${u.lastName ?? ""}`.trim(),
+            avatar: u.imageUrl,
+          };
+        } catch (err) {
+          console.error(`Error fetching Clerk user for ${email}:`, err);
+          return {
+            email,
+            role: room.usersAccesses[email],
+            name: null,
+            avatar: null,
+          };
+        }
+      })
+    );
 
     return parseStringify(users);
   } catch (error) {
-    console.log(`Error fetching document users: ${error}`);
+    console.error("Error fetching document users with decorations:", error);
+    return [];
   }
 };

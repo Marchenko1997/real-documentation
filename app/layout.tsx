@@ -30,6 +30,8 @@ export default function RootLayout({
         baseTheme: dark,
         variables: { colorPrimary: "#3371FF", fontSize: "16px" },
       }}
+      signInUrl="/sign-in"
+      signUpUrl="/sign-up"
     >
       <html lang="en" suppressHydrationWarning>
         <body

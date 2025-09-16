@@ -40,14 +40,14 @@ export const createDocument = async ({
 
 export const getDocument = async ({
   roomId,
-  userId,
+  userEmail,
 }: {
   roomId: string;
-  userId: string;
+  userEmail: string;
 }) => {
   try {
     const room = await liveblocks.getRoom(roomId);
-    const hasAccess = Object.keys(room.usersAccesses).includes(userId);
+    const hasAccess = Object.keys(room.usersAccesses).includes(userEmail);
     if (!hasAccess) {
       throw new Error("You don't have access to this document");
     }
@@ -103,7 +103,7 @@ export const updateDocumentAccess = async ({
         subjectId: notificationId,
         activityData: {
           userType,
-          title: `You have been granted ${userType} access to the document by ${updatedBy.name}`,
+          title: `You have been granted ${userType} access to the document by ${updatedBy.email}`,
           updatedBy: updatedBy.name,
           avatar: updatedBy.avatar,
           email: updatedBy.email,

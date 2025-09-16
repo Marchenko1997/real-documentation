@@ -16,7 +16,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { updateDocumentAccess } from "@/lib/actions/room.actions";
 import UserTypeSelector from "./UserTypeSelector";
-import { toast } from "sonner"; 
+import { toast } from "sonner";
 
 interface ShareModalProps {
   roomId: string;
@@ -43,28 +43,24 @@ export const ShareModal: React.FC<ShareModalProps> = ({
       return;
     }
 
+    
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast.error("Invalid email format ❌");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const res = await fetch("/api/check-user", {
-        method: "POST",
-        body: JSON.stringify({ email }),
+      await updateDocumentAccess({
+        roomId,
+        email,
+        userType: userType as any,
+        updatedBy: user.info,
       });
 
-      const { exists } = await res.json();
-
-      if (!exists) {
-        toast.error("There is no such user in the system. ❌");
-      } else {
-        await updateDocumentAccess({
-          roomId,
-          email,
-          userType: userType as any,
-          updatedBy: user.info,
-        });
-        toast.success(`Invitation sent ✅ (${email})`);
-        setEmail("");
-      }
+      toast.success(`Invitation sent ✅ (${email})`);
+      setEmail("");
     } catch (error) {
       console.error(error);
       toast.error("Error while inviting");

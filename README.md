@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# <img src="./public/assets/images/mainreadme.png"  alt="Live Docs"> 
 
-## Getting Started
+# LiveDocs
 
-First, run the development server:
+LiveDocs is a collaborative real-time document editing platform built with cutting-edge web technologies.  
+Work together, share ideas instantly, and manage access all in one place!
 
-```bash
+---
+
+## ✨ Features
+
+- 🔐 **Authentication & Authorization** — powered by [Clerk](https://clerk.com)
+- 📝 **Collaborative editor** — Liveblocks + Lexical
+- 👥 **Real-time presence & cursors** — see who's online and editing
+- 📂 **Document management** — create, rename, delete, and share docs
+- 📢 **Notifications** — instant alerts about access changes
+- 👀 **Role-based access** — editors & viewers with permissions
+- 🎨 **Modern UI/UX** — built with [TailwindCSS](https://tailwindcss.com) and ShadCN UI
+- ☁️ **Deployed on Vercel** — fast, scalable, and production-ready
+
+---
+
+## 🛠 Tech Stack
+
+- **Framework:** [Next.js 15](https://nextjs.org) (App Router)
+- **Auth:** [Clerk](https://clerk.com)
+- **Collaboration:** [Liveblocks](https://liveblocks.io)
+- **UI:** ShadCN UI, [TailwindCSS](https://tailwindcss.com)
+- **Editor:** Lexical via Liveblocks
+- **Icons:** Lucide React
+- **State/UI:** Radix UI, Sonner
+- **Error Tracking:** Sentry
+
+---
+
+## 🚀 Getting Started
+
+Install dependencies:
+
+npm install
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can start editing the page by modifying `app/page.tsx` (home page) or `app/documents/[id]/page.tsx` (collaborative document page).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📖 Usage
 
-To learn more about Next.js, take a look at the following resources:
+- Sign up / log in with Clerk
+- Create new documents
+- Edit in real time — instant updates for all collaborators
+- Share docs via email invitation
+- Manage roles: Editor or Viewer
+- Track notifications for access changes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ⚡ Benefits
 
-## Deploy on Vercel
+- Eliminates need for Google Docs or Notion in small teams
+- Privacy-friendly: data stays within your infra
+- Great for remote teams, startups, and students
+- Easy to scale with Next.js + Liveblocks infra
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧩 Challenges Faced
+
+- Synchronizing Clerk & Liveblocks users (email ↔ role mapping)
+- Real-time presence management at scale
+- Strict role permissions (creator can't be removed, role logic)
+- Handling Clerk avatar images via external Next.js domains
+- UI consistency: ShadCN UI × Tailwind x accessibility
+
+---
+
+## 📚 Learn More
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Clerk Documentation](https://clerk.com/docs)
+- [Liveblocks Documentation](https://liveblocks.io/docs)
+- [ShadCN UI](https://ui.shadcn.com)
+
+---
+
+## 📦 Deployment
+
+The easiest way to deploy is via [Vercel](https://vercel.com).
+
+See official [Next.js deployment docs](https://nextjs.org/docs/app/building-your-application/deploying) for details.
+
+---
+
+> Built with ❤️ by Halyna Marchenko
