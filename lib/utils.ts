@@ -19,7 +19,10 @@ export const getAccessType = (userType: UserType) => {
   }
 };
 
-export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));
+export const parseStringify = <T>(value: T): T => {
+  return JSON.parse(JSON.stringify(value)) as T;
+};
+
 
 
 export const dateConverter = (timestamp: string): string => {

@@ -242,12 +242,13 @@ export function createDOMRange(
     focusOffset = 1;
   }
 
-  try {
-    range.setStart(anchorDOM, anchorOffset);
-    range.setEnd(focusDOM, focusOffset);
-  } catch (e) {
-    return null;
-  }
+try {
+  range.setStart(anchorDOM, anchorOffset);
+  range.setEnd(focusDOM, focusOffset);
+} catch {
+  return null;
+}
+
 
   if (
     range.collapsed &&

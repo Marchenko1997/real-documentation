@@ -20,7 +20,7 @@ import { toast } from "sonner";
 
 interface ShareModalProps {
   roomId: string;
-  collaborators: any[];
+  collaborators?: { id: string; name: string }[];
   creatorId: string;
   currentUserType: "editor" | "viewer";
 }
