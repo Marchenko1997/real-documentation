@@ -11,7 +11,11 @@ declare type AccessType = (
 
 declare type UserType = "creator" | "editor" | "viewer";
 
-declare type RoomAccesses = Record<string, AccessType>;
+declare type RoomAccesses = Record<
+  string,
+  ["room:write"] | ["room:read", "room:presence:write"]
+>;
+
 
 // 🚀 Переименовал в AppRoomData
 declare type AppRoomData = {
