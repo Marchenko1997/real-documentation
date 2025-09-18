@@ -9,6 +9,8 @@ import {
 } from "@liveblocks/react/suspense";
 import Loader from "@/components/Loader";
 
+type MentionUser = { kind: "user"; id: string };
+
 const Provider = ({ children }: { children: ReactNode }) => {
   const { user: clerkUser } = useUser();
 
@@ -24,7 +26,13 @@ const Provider = ({ children }: { children: ReactNode }) => {
           text,
         });
 
-        return roomUsers;
+        // ✅ Теперь явно приводим к нужному типу
+        const mapped: MentionUser[] = roomUsers.map((u: any) => ({
+          kind: "user",
+          id: String(u.email ?? u.id), // гарантируем string
+        }));
+
+        return mapped;
       }}
     >
       <ClientSideSuspense fallback={<Loader />}>{children}</ClientSideSuspense>
