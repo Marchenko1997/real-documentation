@@ -4,17 +4,23 @@ declare type SearchParamProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-declare type AccessType = ["room:write"] | ["room:read", "room:presence:write"];
+declare type AccessType = (
+  | "room:write"
+  | "room:read"
+  | "room:presence:write"
+)[];
+
 
 declare type UserType = "creator" | "editor" | "viewer";
 
 declare type RoomAccesses = Record<string, AccessType>;
 
 declare type RoomMetadata = {
-  creatorId: string;
-  email: string;
-  title: string;
+  creatorId?: string;
+  email?: string;
+  title?: string;
 };
+
 
 declare type CreateDocumentParams = {
   userId: string;

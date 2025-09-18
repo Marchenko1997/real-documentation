@@ -10,10 +10,10 @@ const Document = async ({ params: { id } }: SearchParamProps) => {
 
   const currentEmail = clerkUser.emailAddresses?.[0]?.emailAddress;
 
- const room = await getDocument({
-   roomId: id,
-   userEmail: clerkUser.emailAddresses[0].emailAddress,
- });
+  const room = await getDocument({
+    roomId: id,
+    userEmail: currentEmail!,
+  });
   if (!room) redirect("/");
 
   const usersAccesses = room.usersAccesses ?? {};
@@ -26,17 +26,36 @@ const Document = async ({ params: { id } }: SearchParamProps) => {
   });
 
   // Определяем роль текущего пользователя
-  const currentUserType =
-    currentEmail && usersAccesses[currentEmail]?.includes("room:write")
+  const currentUserType: UserType =
+    currentEmail && usersAccesses[currentEmail]?.[0] === "room:write"
       ? "editor"
       : "viewer";
+
+  // ✅ Нормализуем метаданные документа
+const roomMetadata: RoomMetadata = {
+  creatorId: String(room.metadata?.creatorId ?? clerkUser.id),
+  email: String(room.metadata?.email ?? currentEmail ?? ""),
+  title: String(room.metadata?.title ?? "Untitled"),
+};
+
+
+
+  // ✅ Маппим пользователей в твой тип User
+  const mappedUsers: User[] = (usersData ?? []).map((u: any) => ({
+    id: u.id ?? "",
+    name: u.name ?? "Unknown",
+    email: u.email ?? "",
+    avatar: u.avatar ?? "",
+    color: u.color ?? "#ccc",
+    userType: u.userType ?? "viewer",
+  }));
 
   return (
     <main className="flex w-full flex-col items-center">
       <CollaborativeRoom
         roomId={id}
-        roomMetadata={room.metadata}
-        users={usersData ?? []}
+        roomMetadata={roomMetadata}
+        users={mappedUsers}
         currentUserType={currentUserType}
       />
     </main>

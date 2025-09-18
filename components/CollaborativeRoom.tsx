@@ -113,7 +113,7 @@ const CollaborativeRoom = ({
               <ShareModal
                 roomId={roomId}
                 collaborators={users}
-                creatorId={roomMetadata.creatorId}
+                creatorId={roomMetadata.creatorId ?? ""}
                 currentUserType={
                   currentUserType === "creator" ? "editor" : currentUserType
                 }
