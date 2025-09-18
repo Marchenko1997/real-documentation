@@ -1,4 +1,3 @@
-
 declare type SearchParamProps = {
   params: { [key: string]: string };
   searchParams: { [key: string]: string | string[] | undefined };
@@ -10,17 +9,22 @@ declare type AccessType = (
   | "room:presence:write"
 )[];
 
-
 declare type UserType = "creator" | "editor" | "viewer";
 
 declare type RoomAccesses = Record<string, AccessType>;
 
-declare type RoomMetadata = {
-  creatorId?: string;
-  email?: string;
-  title?: string;
+// 🚀 Переименовал в AppRoomData
+declare type AppRoomData = {
+  id: string;
+  metadata: RoomMetadata;
+  createdAt: string;
 };
 
+declare type RoomMetadata = {
+  creatorId: string;
+  email: string;
+  title: string;
+};
 
 declare type CreateDocumentParams = {
   userId: string;
@@ -83,15 +87,9 @@ declare type ThreadWrapperProps = {
     roomId: string;
     createdAt: Date;
     updatedAt: Date;
-    resolved: boolean; // 👈 теперь обязательный
+    resolved: boolean;
     comments: any[];
     metadata: any;
     [key: string]: any;
   };
 };
-
-
-
-
-
-
