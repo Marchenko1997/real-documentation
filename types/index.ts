@@ -1,22 +1,20 @@
+
 declare type SearchParamProps = {
   params: { [key: string]: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-  declare type AccessType =
-    | ["room:write"]
-    | ["room:read", "room:presence:write"];
+declare type AccessType = ["room:write"] | ["room:read", "room:presence:write"];
 
 declare type UserType = "creator" | "editor" | "viewer";
 
 declare type RoomAccesses = Record<string, AccessType>;
 
-  declare type RoomMetadata = {
-    creatorId: string;
-    email: string;
-    title: string;
-  };
-  
+declare type RoomMetadata = {
+  creatorId: string;
+  email: string;
+  title: string;
+};
 
 declare type CreateDocumentParams = {
   userId: string;
@@ -32,38 +30,38 @@ declare type User = {
   userType?: UserType;
 };
 
-  declare type ShareDocumentParams = {
-    roomId: string;
-    email: string;
-    userType: UserType;
-    updatedBy: User;
-  };
+declare type ShareDocumentParams = {
+  roomId: string;
+  email: string;
+  userType: UserType;
+  updatedBy: User;
+};
 
 declare type HeaderProps = {
   children: React.ReactNode;
   className?: string;
 };
 
-  declare type CollaboratorProps = {
-    roomId: string;
-    email: string;
-    creatorId: string;
-    collaborator: User;
-    user: User;
-  };
-
-  declare type CollaborativeRoomProps = {
-    roomId: string;
-    roomMetadata: RoomMetadata;
-    users: User[];
-    currentUserType: UserType;
+declare type CollaboratorProps = {
+  roomId: string;
+  email: string;
+  creatorId: string;
+  collaborator: User;
+  user: User;
 };
-  
-  declare type UserTypeSelectorParams = {
-    userType: string;
-    setUserType: React.Dispatch<React.SetStateAction<UserType>>;
-    onClickHandler?: (value: string) => void;
-  };
+
+declare type CollaborativeRoomProps = {
+  roomId: string;
+  roomMetadata: RoomMetadata;
+  users: User[];
+  currentUserType: UserType;
+};
+
+declare type UserTypeSelectorParams = {
+  userType: string;
+  setUserType: React.Dispatch<React.SetStateAction<UserType>>;
+  onClickHandler?: (value: string) => void;
+};
 
 declare type AddDocumentBtnProps = {
   userId: string;
@@ -71,3 +69,23 @@ declare type AddDocumentBtnProps = {
 };
 
 declare type DeleteModalProps = { roomId: string };
+
+declare type ThreadWrapperProps = {
+  thread: {
+    id: string;
+    type: "thread";
+    roomId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    resolved: boolean; // 👈 теперь обязательный
+    comments: any[];
+    metadata: any;
+    [key: string]: any;
+  };
+};
+
+
+
+
+
+

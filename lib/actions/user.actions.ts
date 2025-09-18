@@ -1,6 +1,7 @@
 "use server";
 
-import { clerkClient } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/clerk-sdk-node";
+
 import { liveblocks } from "../liveblocks";
 import { parseStringify } from "../utils";
 
@@ -33,12 +34,12 @@ export const getDocumentUsersWithDecorations = async ({
 
     console.log("Emails in room:", emails);
 
-    // 4. Тянем Clerk-профили для этих email
+    // 4. Тянем Clerk-профили для этих email через clerkClient
     const users = await Promise.all(
       emails.map(async (email) => {
         try {
           const { data } = await clerkClient.users.getUserList({
-            query: email,
+            emailAddress: [email],
           });
 
           if (!data || data.length === 0) {
@@ -69,6 +70,7 @@ export const getDocumentUsersWithDecorations = async ({
         }
       })
     );
+
 
     return parseStringify(users);
   } catch (error) {
