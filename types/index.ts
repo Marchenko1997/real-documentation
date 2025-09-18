@@ -3,21 +3,14 @@ declare type SearchParamProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-declare type AccessType = (
-  | "room:write"
-  | "room:read"
-  | "room:presence:write"
-)[];
-
 declare type UserType = "creator" | "editor" | "viewer";
 
-declare type RoomAccesses = Record<
-  string,
-  ["room:write"] | ["room:read", "room:presence:write"]
->;
+// --- правильный тип доступа ---
+declare type RoomAccess = ["room:write"] | ["room:read", "room:presence:write"];
 
+declare type RoomAccesses = Record<string, RoomAccess>;
 
-// 🚀 Переименовал в AppRoomData
+// 🚀 AppRoomData
 declare type AppRoomData = {
   id: string;
   metadata: RoomMetadata;

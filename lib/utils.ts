@@ -6,18 +6,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const getAccessType = (userType: UserType) => {
+export function getAccessType(userType: UserType): RoomAccess {
   switch (userType) {
     case "creator":
-      return ["room:write"];
     case "editor":
       return ["room:write"];
     case "viewer":
       return ["room:read", "room:presence:write"];
-    default:
-      return ["room:read", "room:presence:write"];
   }
-};
+}
+
 
 export const parseStringify = <T>(value: T): T => {
   return JSON.parse(JSON.stringify(value)) as T;
