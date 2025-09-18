@@ -114,7 +114,9 @@ const CollaborativeRoom = ({
                 roomId={roomId}
                 collaborators={users}
                 creatorId={roomMetadata.creatorId}
-                currentUserType={currentUserType}
+                currentUserType={
+                  currentUserType === "creator" ? "editor" : currentUserType
+                }
               />
               <SignedOut>
                 <SignInButton />
@@ -126,7 +128,12 @@ const CollaborativeRoom = ({
           </Header>
 
           {/* Сам редактор */}
-          <Editor roomId={roomId} currentUserType={currentUserType} />
+          <Editor
+            roomId={roomId}
+            currentUserType={
+              currentUserType === "creator" ? "editor" : currentUserType
+            }
+          />
         </div>
       </ClientSideSuspense>
     </RoomProvider>
