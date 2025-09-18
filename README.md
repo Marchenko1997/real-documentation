@@ -22,7 +22,7 @@ Work together, share ideas instantly, and manage access all in one place!
 
 ## 🛠 Tech Stack
 
-- **Framework:** [Next.js 15](https://nextjs.org) (App Router)
+- **Framework:** [Next.js 14](https://nextjs.org) (App Router)
 - **Auth:** [Clerk](https://clerk.com)
 - **Collaboration:** [Liveblocks](https://liveblocks.io)
 - **UI:** ShadCN UI, [TailwindCSS](https://tailwindcss.com)
