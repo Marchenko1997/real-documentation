@@ -11,7 +11,7 @@ const ThreadWrapper = ({ thread }: ThreadWrapperProps) => {
 
   return (
     <Thread
-      thread={thread as unknown as ThreadData<any>} // TS теперь доволен
+      thread={thread as unknown as ThreadData<any>}
       data-state={isActive ? "active" : null}
       className={cn(
         "comment-thread border",

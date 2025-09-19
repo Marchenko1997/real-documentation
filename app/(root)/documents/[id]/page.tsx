@@ -18,20 +18,20 @@ const Document = async ({ params: { id } }: SearchParamProps) => {
 
   const usersAccesses = room.usersAccesses ?? {};
 
-  // 🔥 Новый вызов: берём сразу декорированных юзеров
+
   const usersData = await getDocumentUsersWithDecorations({
     roomId: id,
     currentUser: currentEmail!,
     text: "",
   });
 
-  // Определяем роль текущего пользователя
+
   const currentUserType: UserType =
     currentEmail && usersAccesses[currentEmail]?.[0] === "room:write"
       ? "editor"
       : "viewer";
 
-  // ✅ Нормализуем метаданные документа
+
 const roomMetadata: RoomMetadata = {
   creatorId: String(room.metadata?.creatorId ?? clerkUser.id),
   email: String(room.metadata?.email ?? currentEmail ?? ""),
@@ -40,7 +40,7 @@ const roomMetadata: RoomMetadata = {
 
 
 
-  // ✅ Маппим пользователей в твой тип User
+
   const mappedUsers: User[] = (usersData ?? []).map((u: any) => ({
     id: u.id ?? "",
     name: u.name ?? "Unknown",

@@ -16,15 +16,14 @@ export const getDocumentUsersWithDecorations = async ({
   text: string;
 }) => {
   try {
-    // 1. Берём комнату из Liveblocks
+
     const room = await liveblocks.getRoom(roomId);
 
-    // 2. Список всех email (кроме текущего)
+
     let emails = Object.keys(room.usersAccesses).filter(
       (email) => email !== currentUser
     );
 
-    // 3. Фильтр по поисковому тексту (если есть)
     if (text.length) {
       const lowerCaseText = text.toLowerCase();
       emails = emails.filter((email) =>
@@ -34,7 +33,7 @@ export const getDocumentUsersWithDecorations = async ({
 
     console.log("Emails in room:", emails);
 
-    // 4. Тянем Clerk-профили для этих email через clerkClient
+   
     const users = await Promise.all(
       emails.map(async (email) => {
         try {

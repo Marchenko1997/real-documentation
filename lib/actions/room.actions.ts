@@ -19,7 +19,7 @@ export const createDocument = async ({
     };
 
     const usersAccesses: RoomAccesses = {
-      [email]: ["room:write"], // создатель всегда получает полный доступ
+      [email]: ["room:write"], 
     };
 
     const room = await liveblocks.createRoom(roomId, {

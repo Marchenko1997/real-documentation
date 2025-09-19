@@ -18,7 +18,7 @@ const Home = async () => {
     clerkUser.emailAddresses[0].emailAddress
   );
 
-  // 🔥 Приводим roomDocuments.data → AppRoomData[]
+
   const mappedDocuments: AppRoomData[] =
     roomDocuments?.data?.map((doc: any) => ({
       id: doc.id,

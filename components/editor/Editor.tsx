@@ -18,7 +18,7 @@ import {
   FloatingThreads,
   LiveblocksPlugin,
   liveblocksConfig,
-  useIsEditorReady, // ← ЗАМЕНА
+  useIsEditorReady, 
 } from "@liveblocks/react-lexical";
 import FloatingToolbarPLugin from "./plugins/FloatingToolbarPlugin";
 import Loader from "../Loader";

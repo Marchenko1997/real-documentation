@@ -26,10 +26,10 @@ const Provider = ({ children }: { children: ReactNode }) => {
           text,
         });
 
-        // ✅ Теперь явно приводим к нужному типу
+      
         const mapped: MentionUser[] = roomUsers.map((u: any) => ({
           kind: "user",
-          id: String(u.email ?? u.id), // гарантируем string
+          id: String(u.email ?? u.id),
         }));
 
         return mapped;

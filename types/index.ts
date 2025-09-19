@@ -5,12 +5,11 @@ declare type SearchParamProps = {
 
 declare type UserType = "creator" | "editor" | "viewer";
 
-// --- правильный тип доступа ---
+
 declare type RoomAccess = ["room:write"] | ["room:read", "room:presence:write"];
 
 declare type RoomAccesses = Record<string, RoomAccess>;
 
-// 🚀 AppRoomData
 declare type AppRoomData = {
   id: string;
   metadata: RoomMetadata;
